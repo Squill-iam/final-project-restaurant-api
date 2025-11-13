@@ -1,0 +1,29 @@
+import prisma from '../config/db.js';
+import bcrypt from 'bcrypt';
+
+export async function registerUser(data){
+    return await prisma.user.create({data: data, omit:{password: true}});
+}
+
+export async function findAllUsers(){
+    return await prisma.user.findMany({omit:{password: true}});
+}
+
+export async function findUserByEmail(email){
+    return await prisma.user.findUnique({where: {email}});
+}
+
+export async function findUserById(id){
+    return await prisma.user.findUnique({where: {id}, omit:{password: true}});
+}
+
+export async function updatedCurrentUser(id, data){
+    if(data.password){
+        data.password = bcrypt.hash(data.password, 10);
+    }
+    return await prisma.user.update({where: {id}, data, omit: {password: true}});
+}
+
+export async function deleteUser(id){
+    return await prisma.user.delete({where: {id}});
+}
