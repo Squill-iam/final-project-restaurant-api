@@ -35,11 +35,11 @@ export async function deleteCurrentUser(id) {
   return await prisma.user.delete({ where: { id } });
 }
 
-export async function findCurrentUserReservation(id) {
+export async function findCurrentUserReservations(id) {
   const userReservation = await prisma.user.findUnique({
     where: { id },
-    include: { reservation: true },
+    include: { reservations: true },
     omit: {password: true},
   });
-  return userReservation.reservation;
+  return userReservation.reservations;
 }
