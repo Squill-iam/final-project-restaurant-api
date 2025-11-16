@@ -1,10 +1,18 @@
 import {
+  createUser,
   getAllUsers,
   getCurrentUser,
   updateUser,
   deleteUser,
   getUserReservations,
 } from '../services/userService.js';
+
+export async function registerUserHandler(req, res) {
+  const { email, password, phone } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const users = await createUser({ email, password: hashedPassword, phone });
+  res.status(201).json(users);
+}
 
 export async function getAllUsersHandler(req, res) {
   const users = await getAllUsers();

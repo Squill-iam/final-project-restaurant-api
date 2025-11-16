@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Prisma } from '../generated/prisma/index.js';
 import {
+  registerUser,
   findAllUsers,
   findCurrentUser,
   updatedCurrentUser,
@@ -14,6 +15,10 @@ export async function getAllUsers() {
 
 export async function getCurrentUser(id) {
   return await findCurrentUser(id);
+}
+
+export async function createUser(data) {
+  return await registerUser(data);
 }
 
 export async function updateUser(id, { email, password, phone }) {
