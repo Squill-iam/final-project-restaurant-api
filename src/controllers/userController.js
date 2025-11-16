@@ -1,0 +1,38 @@
+import {
+  getAllUsers,
+  getCurrentUser,
+  updateUser,
+  deleteUser,
+  getUserReservations,
+} from '../services/userService.js';
+
+export async function getAllUsersHandler(req, res) {
+  const users = await getAllUsers();
+  res.status(200).json(users);
+}
+
+export async function getCurrentUserHandler(req, res) {
+  const users = await getCurrentUser(req.user.id);
+  res.status(200).json(users);
+}
+
+export async function updateCurrentUserHandler(req, res) {
+  const { email, password, phone } = req.body;
+  if (!email && !password && !phone) {
+    return res
+      .status(400)
+      .json({ message:'An email, password or phone number must be provided to update'});
+  }
+  const updatedUser = await updateUser(req.user.id, {email, password, phone});
+  res.status(200).json(updatedUser);
+}
+
+export async function deleteCurrentUserHandler(req, res) {
+  const users = await deleteUser(req.user.id);
+  res.status(200).json(users);
+}
+
+export async function getUserReservationsHandler(req, res) {
+  const reservations = await getUserReservations(req.user.id);
+  res.status(200).json(reservations);
+}
