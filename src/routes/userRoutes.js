@@ -18,3 +18,5 @@ router.get('/id', authenticate, getCurrentUserHandler);
 router.put('/users/id', authenticate, validateUserUpdate, updateCurrentUserHandler);
 router.delete('/users/id', authenticate, deleteCurrentUserHandler);
 router.get('/users/id/reservations', authenticate, getUserReservationsHandler);
+
+export default router;

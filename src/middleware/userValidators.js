@@ -1,7 +1,7 @@
 import {body, param} from 'express-validator';
 import { handleValidationErrors } from './handleValidationErrors.js';
 
-export const validateuser = [
+export const validateUser = [
     body('email')
     .exists({values: 'false'})
     .withMessage('Email is required')
