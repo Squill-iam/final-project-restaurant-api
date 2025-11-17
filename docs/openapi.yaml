@@ -8,7 +8,7 @@ servers:
 tags:
   - name: Menu
 paths:
-  /menu:
+  /api/menu:
     $ref: paths/menu.yaml
-  /menu/{id}:
+  /api/menu/{id}:
     $ref: paths/menuById.yaml

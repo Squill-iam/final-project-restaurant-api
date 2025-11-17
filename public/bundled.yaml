@@ -8,7 +8,7 @@ servers:
 tags:
   - name: Menu
 paths:
-  /menu:
+  /api/menu:
     get:
       summary: List all menu items
       tags:
@@ -39,7 +39,7 @@ paths:
           description: Menu item created
         '400':
           $ref: '#/components/responses/BadRequest'
-  /menu/{id}:
+  /api/menu/{id}:
     get:
       summary: Get menu item by ID
       tags:
