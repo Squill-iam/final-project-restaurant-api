@@ -1,0 +1,159 @@
+openapi: 3.1.0
+info:
+  title: Restaurant API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development servers
+tags:
+  - name: Menu
+paths:
+  /menu:
+    get:
+      summary: List all menu items
+      tags:
+        - Menu
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/menuItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      summary: Create a menu item
+      tags:
+        - Menu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/menuItem'
+      responses:
+        '201':
+          description: Menu item created
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /menu/{id}:
+    get:
+      summary: Get menu item by ID
+      tags:
+        - Menu
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of menu item to get
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menuItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Update a menu item
+      tags:
+        - Menu
+      parameters:
+        - name: id
+          in: path
+          description: ID of menu item
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/menuItem'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menuItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete a menu item
+      tags:
+        - Menu
+      parameters:
+        - name: id
+          in: path
+          description: ID of the menu item to delete
+          required: true
+          schema:
+            type: integer
+      responeses:
+        '204':
+          description: Menu item deleted
+        '400':
+          $ref: ../components/responses/BadRequest.yaml
+        '404':
+          $ref: ../components/responses/NotFound.yaml
+components:
+  schemas:
+    menuItem:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Pizza
+        price:
+          type: number
+          example: 5.99
+        restaurantId:
+          type: integer
+          example: 1
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Validation failed
+        details:
+          type: array
+          items:
+            type: string
+    NotFoundError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Task not found
+  responses:
+    BadRequest:
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'

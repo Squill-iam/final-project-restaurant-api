@@ -1,0 +1,14 @@
+openapi: 3.1.0
+info:
+  title: Restaurant API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development servers
+tags:
+  - name: Menu
+paths:
+  /menu:
+    $ref: paths/menu.yaml
+  /menu/{id}:
+    $ref: paths/menuById.yaml
