@@ -6,8 +6,14 @@ servers:
   - url: http://localhost:3000
     description: Local development servers
 tags:
+  - name: Users
+    description: User-related endpoints
   - name: Menu
 paths:
+  /api/users:
+    $ref: paths/users.yaml
+  /api/users/{id}:
+    $ref: paths/userId.yaml
   /api/menu:
     $ref: paths/menu.yaml
   /api/menu/{id}:
