@@ -1,0 +1,47 @@
+get:
+  summary: List all users
+  tags:
+    - Users
+  parameters:
+    - name: limit
+      in: query
+      description: Maximum number of users to return
+      required: false
+      schema:
+        type: integer
+        default: 10
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/User.yaml
+post:
+  summary: Create a new user
+  tags:
+    - Users
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/User.yaml
+  responses:
+    '201':
+      description: User created successfully
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/User.yaml
+    '400':
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Validation failed
+            details: Name is required
