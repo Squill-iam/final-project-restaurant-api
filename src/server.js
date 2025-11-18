@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
 import menuRoutes from './routes/menuRoutes.js';
+import restaurantRoutes from './routes/restaurantRoutes.js';
 
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -17,6 +18,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/restaurants', restaurantRoutes);
 
 const specs = YAML.load('./public/bundled.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
