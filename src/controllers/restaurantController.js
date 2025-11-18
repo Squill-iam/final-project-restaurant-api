@@ -1,6 +1,7 @@
 import {
     getAllRestaurants,
     getRestaurantById,
+    CreateRestaurant,
 } from '../services/restaurantService.js';
 
 export async function getAllRestaurantsHandler(req, res) {
@@ -14,4 +15,9 @@ export async function getRestaurantByIdHandler(req, res) {
         return res.status(404).json({ message: 'Restaurant not found' });
     }
     res.json(restaurant);
+}
+
+export async function createRestaurantHandler(req, res) {
+    const restaurant = await CreateRestaurant(req.body);
+    res.status(201).json(restaurant);
 }

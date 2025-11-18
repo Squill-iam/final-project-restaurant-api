@@ -1,6 +1,7 @@
 import {
     findAllRestaurants,
-    findRestaurantById
+    findRestaurantById,
+    createRestaurant,
 } from '../repositories/restaurantRepo.js';
 
 export async function getAllRestaurants() {
@@ -9,4 +10,8 @@ export async function getAllRestaurants() {
 
 export async function getRestaurantById(id) {
     return await findRestaurantById(id);
+}
+
+export async function CreateRestaurant(data) {
+    return await createRestaurant(data);
 }
