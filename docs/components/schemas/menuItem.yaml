@@ -1,0 +1,15 @@
+type: object
+properties:
+  id:
+    readOnly: true
+    type: integer
+    example: 1
+  name:
+    type: string
+    example: Pizza
+  price:
+    type: number
+    example: 5.99
+  restaurantId:
+    type: integer
+    example: 1

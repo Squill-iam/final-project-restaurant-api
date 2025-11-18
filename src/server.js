@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
+import menuRoutes from './routes/menuRoutes.js';
+
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
@@ -12,13 +14,13 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 app.use(morgan('tiny'));
-
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
 const specs = YAML.load('./public/bundled.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/api/menu', menuRoutes);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');

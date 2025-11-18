@@ -4,23 +4,15 @@ info:
   version: 1.0.0
 servers:
   - url: http://localhost:3000
+    description: Local development servers
 tags:
-  - name: Users
-    description: User-related endpoints
+  - name: Menu
 paths:
-  /users:
+  /api/menu:
     get:
-      summary: List all users
+      summary: List all menu items
       tags:
-        - Users
-      parameters:
-        - name: limit
-          in: query
-          description: Maximum number of users to return
-          required: false
-          schema:
-            type: integer
-            default: 10
+        - Menu
       responses:
         '200':
           description: OK
@@ -29,42 +21,56 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
+                  $ref: '#/components/schemas/menuItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
     post:
-      summary: Create a new user
+      summary: Create a menu item
       tags:
-        - Users
+        - Menu
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/menuItem'
       responses:
         '201':
-          description: User created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
+          description: Menu item created
         '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                error: Validation failed
-                details: Name is required
-  /users/{id}:
-    put:
-      summary: Update user by ID
+          $ref: '#/components/responses/BadRequest'
+  /api/menu/{id}:
+    get:
+      summary: Get menu item by ID
       tags:
-        - Users
+        - Menu
       parameters:
         - name: id
           in: path
-          description: ID of the user to update
+          required: true
+          description: The ID of menu item to get
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/menuItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Update a menu item
+      tags:
+        - Menu
+      parameters:
+        - name: id
+          in: path
+          description: ID of menu item
           required: true
           schema:
             type: integer
@@ -74,59 +80,39 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/menuItem'
       responses:
         '200':
-          description: User updated successfully
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/menuItem'
         '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                error: Validation failed
-                details: Name is required
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: No results found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                error: Not found
-                details: No user exists with the given ID
+          $ref: '#/components/responses/NotFound'
     delete:
-      summary: Delete user by ID
+      summary: Delete a menu item
       tags:
-        - Users
+        - Menu
       parameters:
         - name: id
           in: path
-          description: ID of the user to delete
+          description: ID of the menu item to delete
           required: true
           schema:
             type: integer
-            example: 1
-      responses:
+      responeses:
         '204':
-          description: User deleted successfully
+          description: Menu item deleted
+        '400':
+          $ref: ../components/responses/BadRequest.yaml
         '404':
-          description: No results found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                error: Not found
-                details: No user exists with the given ID
+          $ref: ../components/responses/NotFound.yaml
 components:
   schemas:
-    User:
+    menuItem:
       type: object
       properties:
         id:
@@ -135,17 +121,39 @@ components:
           example: 1
         name:
           type: string
-          example: Alice Green
-        email:
-          type: string
-          example: alice@demo.com
-        phone:
-          type: string
-          example: 123-456-7890
-    Error:
+          example: Pizza
+        price:
+          type: number
+          example: 5.99
+        restaurantId:
+          type: integer
+          example: 1
+    ValidationError:
       type: object
       properties:
         error:
           type: string
+          example: Validation failed
         details:
+          type: array
+          items:
+            type: string
+    NotFoundError:
+      type: object
+      properties:
+        error:
           type: string
+          example: Task not found
+  responses:
+    BadRequest:
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
