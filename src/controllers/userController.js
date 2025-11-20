@@ -38,7 +38,7 @@ export async function updateCurrentUserHandler(req, res) {
 
 export async function deleteCurrentUserHandler(req, res) {
   const users = await deleteUser(req.user.id);
-  res.status(200).json(users);
+  res.status(204).json(users);
 }
 
 export async function getUserReservationsHandler(req, res) {
