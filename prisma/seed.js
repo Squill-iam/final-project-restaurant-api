@@ -27,6 +27,7 @@ async function main() {
       name: 'Bob',
       email: 'bob@example.com',
       password: 'bob123',
+      phone: '234-567-8901',
       role: 'USER',
     },
   });
@@ -36,6 +37,7 @@ async function main() {
       name: 'John',
       email: 'john@example.com',
       password: 'john123',
+      phone: '345-678-9012',
       role: 'ADMIN',
     },
   });
@@ -60,7 +62,7 @@ async function main() {
   const burgerPlace = await prisma.restaurant.create({
     data: {
       name: 'Burger Restaurant',
-      address: '456 Test Blvd',
+      address: '456 Test Dr',
       phone: '555-5678',
       openingTime: new Date('2025-01-01T07:00:00Z'),
       closingTime: new Date('2025-01-01T23:00:00Z'),
