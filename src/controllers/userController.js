@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import {
   createUser,
   getAllUsers,
@@ -8,9 +9,9 @@ import {
 } from '../services/userService.js';
 
 export async function registerUserHandler(req, res) {
-  const { email, password, phone } = req.body;
+  const {name, email, password, phone } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const users = await createUser({ email, password: hashedPassword, phone });
+  const users = await createUser({name, email, password: hashedPassword, phone });
   res.status(201).json(users);
 }
 
