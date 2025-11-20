@@ -1,4 +1,7 @@
+import bcrypt from 'bcrypt';
 import prisma from '../src/config/db.js';
+
+
 
 async function main() {
   console.log('Seeding database...');
@@ -12,36 +15,34 @@ async function main() {
 
 
   // Users
-  const alice = await prisma.user.create({
-    data: {
+  const usersData = [
+    {
       name: 'Alice',
       email: 'alice@example.com',
-      password: 'alice123',
+      password: await bcrypt.hash('alice123',10),
       phone: '123-456-7890',
       role: 'USER',
     },
-  });
-
-  const bob = await prisma.user.create({
-    data: {
+    {
       name: 'Bob',
       email: 'bob@example.com',
-      password: 'bob123',
+      password: await bcrypt.hash('bob123',10), 
       phone: '234-567-8901',
       role: 'USER',
     },
-  });
-
-  const john = await prisma.user.create({
-    data: {
+    {
       name: 'John',
       email: 'john@example.com',
-      password: 'john123',
+      password: await bcrypt.hash('john123',10),
       phone: '345-678-9012',
       role: 'ADMIN',
     },
-  });
+  ];
 
+  const users = await Promise.all(
+    usersData.map((user) => prisma.user.create({ data: user })),
+  );
+ 
   // Restaurants with nested Menu items
   const italianPlace = await prisma.restaurant.create({
     data: {
