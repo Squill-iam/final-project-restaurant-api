@@ -3,6 +3,7 @@ import {
     findById,
     create,
     update,
+    remove,
 } from '../repositories/restaurantRepo.js';
 
 export async function getAllRestaurants() {
@@ -10,7 +11,13 @@ export async function getAllRestaurants() {
 }
 
 export async function getRestaurantById(id) {
-    return await findById(id);
+    let result = await findById(id);
+    if (result) return result;
+    else {
+        const error = new Error(`Cannot find restaurant with id: ${id}`);
+        error.status = 404;
+        throw error;
+    }
 }
 
 export async function createRestaurant(data) {
@@ -18,5 +25,21 @@ export async function createRestaurant(data) {
 }
 
 export async function updateRestaurant(id, data) {
-    return await update(id, data);
+    let result = await update(id, data);
+    if (result) return result;
+    else {
+        const error = new Error(`Cannot find restaurant with id: ${id}`);
+        error.status = 404;
+        throw error;
+    }
+}
+
+export async function deleteRestaurant(id) {
+    let result = await remove(id);
+    if (result) return result;
+    else {
+        const error = new Error(`Cannot find restaurant with id: ${id}`);
+        error.status = 404;
+        throw error;
+    }
 }

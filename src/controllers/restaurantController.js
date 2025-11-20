@@ -3,6 +3,7 @@ import {
     getRestaurantById,
     createRestaurant,
     updateRestaurant,
+    deleteRestaurant,
 } from '../services/restaurantService.js';
 
 export async function getAllRestaurantsHandler(req, res) {
@@ -11,10 +12,7 @@ export async function getAllRestaurantsHandler(req, res) {
 }
 
 export async function getRestaurantByIdHandler(req, res) {
-    const restaurant = await getRestaurantById(Number(req.params.id));
-    if (!restaurant) {
-        return res.status(404).json({ message: 'Restaurant not found' });
-    }
+    await getRestaurantById(Number(req.params.id));
     res.json(restaurant);
 }
 
@@ -24,9 +22,11 @@ export async function createRestaurantHandler(req, res) {
 }
 
 export async function updateRestaurantHandler(req, res) {
-    const restaurant = await updateRestaurant(Number(req.params.id), req.body);
-    if (!restaurant) {
-        return res.status(404).json({ message: 'Restaurant not found' });
-    }
+    await updateRestaurant(Number(req.params.id), req.body);
     res.json(restaurant);
+}
+
+export async function deleteRestaurantHandler(req, res) {
+    await deleteRestaurant(Number(req.params.id));
+    res.status(204).send();
 }
