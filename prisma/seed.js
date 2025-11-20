@@ -11,8 +11,6 @@ async function main() {
   await prisma.menu.deleteMany();
   await prisma.restaurant.deleteMany();
   await prisma.user.deleteMany();
-  await prisma.$queryRawUnsafe(`TRUNCATE TABLE "users", "restaurants", "menu_items", "reservations" RESTART IDENTITY CASCADE;`);
-
 
   // Users
   const usersData = [
@@ -79,7 +77,7 @@ async function main() {
   // Reservations
   await prisma.reservation.create({
     data: {
-      userId: alice.id,
+      userId: users[0].id,
       restaurantId: italianPlace.id,
       reservationTime: new Date('2025-11-22T21:00:00Z'),
       partySize: 2,
@@ -89,7 +87,7 @@ async function main() {
 
   await prisma.reservation.create({
     data: {
-      userId: bob.id,
+      userId: users[1].id,
       restaurantId: burgerPlace.id,
       reservationTime: new Date('2025-11-21T19:00:00Z'),
       partySize: 4,
