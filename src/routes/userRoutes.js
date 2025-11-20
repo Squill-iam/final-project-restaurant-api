@@ -14,11 +14,11 @@ import {validateUserUpdate} from '../middleware/userValidators.js';
 
 const router = express.Router();
 
-router.post('/users', registerUserHandler);
+router.post('/', registerUserHandler);
 router.get('/', authenticate, authorizeRoles('ADMIN'), getAllUsersHandler);
-router.get('/id', authenticate, getCurrentUserHandler);
-router.put('/users/id', authenticate, validateUserUpdate, updateCurrentUserHandler);
-router.delete('/users/id', authenticate, deleteCurrentUserHandler);
-router.get('/users/id/reservations', authenticate, getUserReservationsHandler);
+router.get('/:id', authenticate, getCurrentUserHandler);
+router.put('/:id', authenticate, validateUserUpdate, updateCurrentUserHandler);
+router.delete('/:id', authenticate, deleteCurrentUserHandler);
+router.get('/:id/reservations', authenticate, getUserReservationsHandler);
 
 export default router;
