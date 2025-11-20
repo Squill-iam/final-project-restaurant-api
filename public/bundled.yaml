@@ -5,6 +5,8 @@ info:
 servers:
   - url: http://localhost:3000
     description: Local development servers
+  - url: https://restaurant-api-nj73.onrender.com
+    description: Production server on render
 tags:
   - name: Menu
 paths:
