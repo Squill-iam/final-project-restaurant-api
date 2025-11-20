@@ -1,17 +1,22 @@
 import {
-    findAllRestaurants,
-    findRestaurantById,
-    createRestaurant,
+    findAll,
+    findById,
+    create,
+    update,
 } from '../repositories/restaurantRepo.js';
 
 export async function getAllRestaurants() {
-    return await findAllRestaurants();
+    return await findAll();
 }
 
 export async function getRestaurantById(id) {
-    return await findRestaurantById(id);
+    return await findById(id);
 }
 
-export async function CreateRestaurant(data) {
-    return await createRestaurant(data);
+export async function createRestaurant(data) {
+    return await create(data);
+}
+
+export async function updateRestaurant(id, data) {
+    return await update(id, data);
 }
