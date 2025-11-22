@@ -14,9 +14,9 @@ import {
 const router = express.Router();
 
 router.get('/',authenticate,authorizeRoles('ADMIN'),getAllReservationsHandler);
-router.get('/id', validateReservationId, getReservationByIdHandler);
+router.get('/:id', validateReservationId, getReservationByIdHandler);
 router.post('/',authenticate,validateCreateReservation,createReservationHandler);
-router.patch('/id',validateReservationId,authenticate,authorizeOwnership,validateUpdateReservation,updateReservationHandler);
-router.delete('/id',validateReservationId,authenticate,authorizeOwnership,deleteReservationHandler);
+router.patch('/:id',validateReservationId,authenticate,authorizeOwnership,validateUpdateReservation,updateReservationHandler);
+router.delete('/:id',validateReservationId,authenticate,authorizeOwnership,deleteReservationHandler);
 
 export default router;
