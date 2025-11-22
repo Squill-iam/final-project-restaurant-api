@@ -1,0 +1,41 @@
+get:
+  summary: List all restaurants
+  tags:
+    - Restaurant
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/Restaurant.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+post:
+  summary: Create a restaurant
+  tags:
+    - Restaurant
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Restaurant.yaml
+  responses:
+    '201':
+      description: User created successfully
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Restaurant.yaml
+    '400':
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Validation failed
+            details: Name is required

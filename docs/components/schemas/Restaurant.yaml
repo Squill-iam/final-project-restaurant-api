@@ -1,0 +1,27 @@
+type: object
+properties:
+  id:
+    readOnly: true
+    type: integer
+    example: 1
+  name:
+    type: string
+    example: Italian Restaurant
+  address:
+    type: string
+    example: 123 Main St
+  phone:
+    type: string
+    example: 555-123
+  openingTime:
+    type: string
+    format: time
+    example: '2025-01-01T12:00:00Z'
+  closingTime:
+    type: string
+    format: time
+    example: '2025-01-01T22:00:00Z'
+  menuItems:
+    type: array
+    items:
+      $ref: ./menuItem.yaml

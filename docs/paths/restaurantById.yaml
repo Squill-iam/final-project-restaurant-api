@@ -1,0 +1,104 @@
+get:
+  summary: Get restaurant by ID
+  tags:
+    - Restaurant
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of retaurant to get
+      schema:
+        type: integer
+        example: 1
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Restaurant.yaml
+    '400':
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Validation failed
+            details: ID must be a positive integer
+    '404':
+      description: No results found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Not found
+            details: No restaurant exists with the given ID
+put:
+  summary: Update a restaurant
+  tags:
+    - Restaurant
+  parameters:
+    - name: id
+      in: path
+      description: ID of restaurant
+      required: true
+      schema:
+        type: integer
+        example: 1
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/Restaurant.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Restaurant.yaml
+    '400':
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Validation failed
+            details: Name is required
+    '404':
+      description: No results found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Not found
+            details: No restaurant exists with the given ID
+delete:
+  summary: Delete restaurant by ID
+  tags:
+    - Restaurant
+  parameters:
+    - name: id
+      in: path
+      description: ID of the restaurant to delete
+      required: true
+      schema:
+        type: integer
+        example: 1
+  responses:
+    '204':
+      description: Restaurant deleted successfully
+    '404':
+      description: No results found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Not found
+            details: No restaurant exists with the given ID
