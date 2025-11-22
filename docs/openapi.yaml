@@ -11,6 +11,8 @@ tags:
   - name: Users
     description: User-related endpoints
   - name: Menu
+  - name: Restaurants
+    description: Restaurant-related endpoints
 paths:
   /api/users:
     $ref: paths/users.yaml
@@ -20,6 +22,10 @@ paths:
     $ref: paths/menu.yaml
   /api/menu/{id}:
     $ref: paths/menuById.yaml
+  /api/restaurants:
+    $ref: paths/restaurant.yaml
+  /api/restaurants/{id}:
+    $ref: paths/restaurantById.yaml
   /api/reservation:
     $ref: paths/reservationPath.yaml
   /api/reservation/{id}:
