@@ -16,9 +16,9 @@ const router = express.Router();
 
 router.post('/', registerUserHandler);
 router.get('/', authenticate, authorizeRoles('ADMIN'), getAllUsersHandler);
-router.get('/:id', authenticate, getCurrentUserHandler);
-router.put('/:id', authenticate, validateUserUpdate, updateCurrentUserHandler);
-router.delete('/:id', authenticate, deleteCurrentUserHandler);
-router.get('/:id/reservations', authenticate, getUserReservationsHandler);
+router.get('/me', authenticate, getCurrentUserHandler);
+router.put('/me', authenticate, validateUserUpdate, updateCurrentUserHandler);
+router.delete('/me', authenticate, deleteCurrentUserHandler);
+router.get('/me/reservations', authenticate, getUserReservationsHandler);
 
 export default router;

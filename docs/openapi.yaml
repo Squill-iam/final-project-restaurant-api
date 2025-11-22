@@ -26,3 +26,7 @@ paths:
     $ref: paths/restaurant.yaml
   /api/restaurants/{id}:
     $ref: paths/restaurantById.yaml
+  /api/reservation:
+    $ref: paths/reservationPath.yaml
+  /api/reservation/{id}:
+    $ref: paths/reservationById.yaml
