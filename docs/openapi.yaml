@@ -8,8 +8,14 @@ servers:
   - url: https://restaurant-api-nj73.onrender.com
     description: Production server on render
 tags:
+  - name: Users
+    description: User-related endpoints
   - name: Menu
 paths:
+  /api/users:
+    $ref: paths/users.yaml
+  /api/users/{id}:
+    $ref: paths/userId.yaml
   /api/menu:
     $ref: paths/menu.yaml
   /api/menu/{id}:
