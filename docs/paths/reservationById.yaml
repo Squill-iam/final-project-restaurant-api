@@ -1,0 +1,70 @@
+get:
+  summary: Get reservation item by ID
+  tags:
+    - Reservation
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The ID of reservation to get
+      schema:
+        type: integer
+        example: 1
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/reservation.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Update a reservation status to canceled
+  tags:
+    - Reservation
+  parameters:
+    - name: id
+      in: path
+      description: ID of reservation
+      required: true
+      schema:
+        type: integer
+        example: 1
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/reservation.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/reservation.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+delete:
+  summary: Delete a reservation
+  tags:
+    - Reservation
+  parameters:
+    - name: id
+      in: path
+      description: ID of the reservation to delete
+      required: true
+      schema:
+        type: integer
+  responeses:
+    '204':
+      description: Reservation deleted
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

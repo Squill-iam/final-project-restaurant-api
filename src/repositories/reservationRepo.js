@@ -6,7 +6,7 @@ export async function findAll() {
 }
 
 export async function create(reservation) {
-  const newReservation = await prisma.reservations.create({
+  const newReservation = await prisma.reservation.create({
     data: reservation,
   });
   return newReservation;
@@ -14,7 +14,7 @@ export async function create(reservation) {
 
 export async function update(id) {
   try{
-  const updateReservation = await prisma.reservations.update({
+  const updateReservation = await prisma.reservation.update({
     where: { id },
     status: 'CANCELED',
   });
@@ -29,7 +29,7 @@ export async function update(id) {
 
 export async function remove(id) {
   try {
-    const deletedReservation = await prisma.reservations.delete({
+    const deletedReservation = await prisma.reservation.delete({
       where: { id },
     });
     return deletedReservation;
@@ -40,7 +40,7 @@ export async function remove(id) {
 }
 
 export async function findById(id) {
-  const post = await prisma.reservations.findUnique({
+  const post = await prisma.reservation.findUnique({
     where: { id },
   });
   return post;

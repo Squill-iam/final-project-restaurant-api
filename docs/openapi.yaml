@@ -20,3 +20,7 @@ paths:
     $ref: paths/menu.yaml
   /api/menu/{id}:
     $ref: paths/menuById.yaml
+  /api/reservation:
+    $ref: paths/reservationPath.yaml
+  /api/reservation/{id}:
+    $ref: paths/reservationById.yaml
