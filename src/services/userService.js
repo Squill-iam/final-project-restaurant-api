@@ -22,13 +22,15 @@ export async function createUser(data) {
 }
 
 export async function updateUser(id, { email, password, phone }) {
-  const hashedPassword = await bcrypt.hash(password, 10);
   try {
-    const updatedUser = await updatedCurrentUser(id, {
-      email,
-      password: hashedPassword,
-      phone,
-    });
+    const updatedUserData = {};
+    if (email) updatedUserData.email = email;
+    if (phone) updatedUserData.phone = phone;
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updatedUserData.password = hashedPassword;
+    }
+    const updatedUser = await updatedCurrentUser(id, updatedUserData);
     return updatedUser;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError)

@@ -11,6 +11,7 @@ async function main() {
   await prisma.menu.deleteMany();
   await prisma.restaurant.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.$queryRawUnsafe(`TRUNCATE TABLE "users", "restaurants", "menu_items", "reservations" RESTART IDENTITY CASCADE;`);
 
   // Users
   const usersData = [
