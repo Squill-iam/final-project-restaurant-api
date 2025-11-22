@@ -9,6 +9,7 @@ import restaurantRoutes from './routes/restaurantRoutes.js';
 
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import reservationRoutes from './routes/reservationRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/reservations', reservationRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 
 const specs = YAML.load('./public/bundled.yaml');
