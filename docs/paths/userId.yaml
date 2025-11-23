@@ -5,7 +5,7 @@ put:
   security:
     - bearerAuth: []
   parameters:
-    - name: id
+    - name: me
       in: path
       description: ID of the user to update
       required: true
@@ -52,7 +52,7 @@ delete:
   security:
     - bearerAuth: []
   parameters:
-    - name: id
+    - name: me
       in: path
       description: ID of the user to delete
       required: true

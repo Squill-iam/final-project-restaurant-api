@@ -20,7 +20,9 @@ tags:
     description: Reservation-related endpoints
  
 paths:
-  /api/auth:
+  /api/auth/signup:
+    $ref: paths/auth.yaml
+  /api/auth/login:
     $ref: paths/auth.yaml
   /api/users:
     $ref: paths/users.yaml
@@ -43,6 +45,7 @@ components:
   responses:
     UnauthorizedError:
       description: Unauthorized access
+
   securitySchemes:
     bearerAuth:
       type: http
