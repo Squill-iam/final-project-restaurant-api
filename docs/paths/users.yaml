@@ -19,6 +19,8 @@ get:
             type: array
             items:
               $ref: ../components/schemas/User.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
 post:
   summary: Create a new user
   tags:
@@ -45,3 +47,5 @@ post:
           example:
             error: Validation failed
             details: Name is required
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml

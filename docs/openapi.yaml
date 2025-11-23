@@ -38,3 +38,13 @@ paths:
     $ref: paths/reservationPath.yaml
   /api/reservations/{id}:
     $ref: paths/reservationById.yaml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  security:
+    - bearerAuth: []
