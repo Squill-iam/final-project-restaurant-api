@@ -1,4 +1,4 @@
-description: Unauthorized access
+description: Forbidden access
 content:
   application/json:
     schema:
@@ -9,4 +9,5 @@ content:
         details:
           type: String
     example:
-      error: Not authentication
+      error: Forbidden
+      details: You do not have permission to access this resource

@@ -89,49 +89,28 @@ paths:
                   $ref: '#/components/schemas/User'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-    post:
-      summary: Create a new user
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '201':
-          description: User created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                error: Validation failed
-                details: Name is required
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-  /api/users/{me}:
-    put:
-      summary: Update user by ID
+  /api/users/me:
+    get:
+      summary: Get current user
       tags:
         - Users
       security:
         - bearerAuth: []
-      parameters:
-        - name: me
-          in: path
-          description: ID of the user to update
-          required: true
-          schema:
-            type: integer
-            example: 1
+      responses:
+        '200':
+          description: Current user retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    put:
+      summary: Update current user
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -140,7 +119,7 @@ paths:
               $ref: '#/components/schemas/User'
       responses:
         '200':
-          description: User updated successfully
+          description: Current user updated successfully
           content:
             application/json:
               schema:
@@ -156,43 +135,17 @@ paths:
                 details: Name is required
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-        '404':
-          description: No results found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                error: Not found
-                details: No user exists with the given ID
     delete:
-      summary: Delete user by ID
+      summary: Delete current user
       tags:
         - Users
       security:
         - bearerAuth: []
-      parameters:
-        - name: me
-          in: path
-          description: ID of the user to delete
-          required: true
-          schema:
-            type: integer
-            example: 1
       responses:
         '204':
-          description: User deleted successfully
+          description: Current user deleted successfully
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-        '404':
-          description: No results found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                error: Not found
-                details: No user exists with the given ID
   /api/menu:
     get:
       summary: List all menu items
@@ -299,7 +252,7 @@ paths:
     get:
       summary: List all restaurants
       tags:
-        - Restaurant
+        - Restaurants
       responses:
         '200':
           description: OK
@@ -311,10 +264,12 @@ paths:
                   $ref: '#/components/schemas/Restaurant'
         '400':
           $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
     post:
-      summary: Create a restaurant
+      summary: Create a restaurants
       tags:
-        - Restaurant
+        - Restaurants
       requestBody:
         required: true
         content:
@@ -337,11 +292,15 @@ paths:
               example:
                 error: Validation failed
                 details: Name is required
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
   /api/restaurants/{id}:
     get:
       summary: Get restaurant by ID
       tags:
-        - Restaurant
+        - Restaurants
       parameters:
         - name: id
           in: path
@@ -366,6 +325,8 @@ paths:
               example:
                 error: Validation failed
                 details: ID must be a positive integer
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: No results found
           content:
@@ -378,7 +339,7 @@ paths:
     put:
       summary: Update a restaurant
       tags:
-        - Restaurant
+        - Restaurants
       parameters:
         - name: id
           in: path
@@ -409,6 +370,10 @@ paths:
               example:
                 error: Validation failed
                 details: Name is required
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
         '404':
           description: No results found
           content:
@@ -421,7 +386,7 @@ paths:
     delete:
       summary: Delete restaurant by ID
       tags:
-        - Restaurant
+        - Restaurants
       parameters:
         - name: id
           in: path
@@ -432,7 +397,11 @@ paths:
             example: 1
       responses:
         '204':
-          description: Restaurant deleted successfully
+          description: Restaurant deleted successfull
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
         '404':
           description: No results found
           content:
@@ -573,6 +542,9 @@ components:
           format: password
           minLength: 8
           example: alice12345
+        phone:
+          type: string
+          example: 123-456-7890
     User:
       type: object
       properties:
@@ -712,10 +684,31 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            type: object
+            properties:
+              error:
+                type: String
+              details:
+                type: String
+          example:
+            error: Not authentication
     NotFound:
       description: Not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/NotFoundError'
+    ForbiddenError:
+      description: Forbidden access
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: String
+              details:
+                type: String
+          example:
+            error: Forbidden
+            details: You do not have permission to access this resource
