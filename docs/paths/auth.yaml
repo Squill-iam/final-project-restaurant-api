@@ -1,4 +1,4 @@
-/api/auth/register:
+/api/auth/signup:
   post:
     summary: Register a new user
     tags:

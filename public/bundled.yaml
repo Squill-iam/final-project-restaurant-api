@@ -496,7 +496,7 @@ paths:
           $ref: ../components/responses/BadRequest.yaml
         '404':
           $ref: ../components/responses/NotFound.yaml
-  /api/auth/register:
+  /api/auth/signup:
     post:
       summary: Register a new user
       tags:
