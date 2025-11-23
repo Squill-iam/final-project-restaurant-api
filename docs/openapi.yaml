@@ -24,7 +24,7 @@ paths:
     $ref: paths/auth.yaml
   /api/users:
     $ref: paths/users.yaml
-  /api/users/{id}:
+  /api/users/{me}:
     $ref: paths/userId.yaml
   /api/menu:
     $ref: paths/menu.yaml
