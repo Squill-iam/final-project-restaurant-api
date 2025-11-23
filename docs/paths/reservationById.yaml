@@ -1,7 +1,7 @@
 get:
   summary: Get reservation item by ID
   tags:
-    - Reservation
+    - Reservations
   parameters:
     - name: id
       in: path
@@ -24,7 +24,7 @@ get:
 patch:
   summary: Update a reservation status to canceled
   tags:
-    - Reservation
+    - Reservations
   parameters:
     - name: id
       in: path
@@ -53,7 +53,7 @@ patch:
 delete:
   summary: Delete a reservation
   tags:
-    - Reservation
+    - Reservations
   parameters:
     - name: id
       in: path
