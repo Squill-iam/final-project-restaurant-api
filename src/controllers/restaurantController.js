@@ -12,8 +12,8 @@ export async function getAllRestaurantsHandler(req, res) {
 }
 
 export async function getRestaurantByIdHandler(req, res) {
-    await getRestaurantById(Number(req.params.id));
-    res.json(restaurant);
+    const restaurant = await getRestaurantById(Number(req.params.id));
+    res.status(200).json(restaurant);
 }
 
 export async function createRestaurantHandler(req, res) {
@@ -22,8 +22,8 @@ export async function createRestaurantHandler(req, res) {
 }
 
 export async function updateRestaurantHandler(req, res) {
-    await updateRestaurant(Number(req.params.id), req.body);
-    res.json(restaurant);
+    const restaurant = await updateRestaurant(Number(req.params.id), req.body);
+    res.status(200).json(restaurant);
 }
 
 export async function deleteRestaurantHandler(req, res) {
