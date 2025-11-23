@@ -249,7 +249,7 @@ paths:
     post:
       summary: Create a Reservation
       tags:
-        - Reservation
+        - Reservations
       requestBody:
         required: true
         content:
@@ -269,7 +269,7 @@ paths:
     get:
       summary: Get reservation item by ID
       tags:
-        - Reservation
+        - Reservations
       parameters:
         - name: id
           in: path
@@ -292,7 +292,7 @@ paths:
     patch:
       summary: Update a reservation status to canceled
       tags:
-        - Reservation
+        - Reservations
       parameters:
         - name: id
           in: path
@@ -321,7 +321,7 @@ paths:
     delete:
       summary: Delete a reservation
       tags:
-        - Reservation
+        - Reservations
       parameters:
         - name: id
           in: path
