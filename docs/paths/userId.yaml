@@ -39,7 +39,7 @@ put:
       content:
         application/json:
           schema:
-            $ref: ../components/responses/UnauthorizedError.yaml'
+            $ref: ../components/schemas/UnauthorizedError.yaml'
     '404':
       description: No results found
       content:
@@ -71,7 +71,7 @@ delete:
       content:
         application/json:
           schema:
-            $ref: ../components/responses/UnauthorizedError.yaml'
+            $ref: ../components/schemas/UnauthorizedError.yaml'
     '404':
       description: No results found
       content:

@@ -24,7 +24,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/responses/UnauthorizedError.yaml'
+            $ref: ../components/schemas/UnauthorizedError.yaml'
 post:
   summary: Create a new user
   tags:
@@ -56,4 +56,4 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../components/responses/UnauthorizedError.yaml'
+            $ref: ../components/schemas/UnauthorizedError.yaml'
