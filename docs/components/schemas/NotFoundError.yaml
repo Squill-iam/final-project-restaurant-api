@@ -2,4 +2,4 @@ type: object
 properties:
   error:
     type: string
-    example: Task not found
+    example: Not found

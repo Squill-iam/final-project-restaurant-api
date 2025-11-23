@@ -7,8 +7,10 @@ servers:
     description: Local development servers
   - url: https://restaurant-api-nj73.onrender.com
     description: Production server on render
+security:
+  - bearerAuth: []
 tags:
-  - name: Auth
+  - name: Authentication
     description: Authentication-related endpoints
   - name: Users
     description: User-related endpoints
@@ -19,51 +21,50 @@ tags:
   - name: Reservations
     description: Reservation-related endpoints
 paths:
-  /api/auth:
-    register:
-      post:
-        summary: Register a new user
-        tags:
-          - Authentication
-        requestBody:
-          required: true
+  /api/auth/signup:
+    post:
+      summary: Register a new user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthSignUp'
+      responses:
+        '201':
+          description: User created successfully
           content:
             application/json:
               schema:
-                $ref: ../components/schemas/AuthSignUp.yaml
-        responses:
-          '201':
-            description: User created successfully
-            content:
-              application/json:
-                schema:
-                  $ref: ../components/schemas/User.yaml
-          '400':
-            $ref: ../components/responses/BadRequest.yaml
-    login:
-      post:
-        summary: Login a user
-        tags:
-          - Authentication
-        requestBody:
-          required: true
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /api/auth/login:
+    post:
+      summary: Login a user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLogin'
+      responses:
+        '200':
+          description: Login successful
           content:
             application/json:
               schema:
-                $ref: ../components/schemas/AuthLogin.yaml
-        responses:
-          '200':
-            description: Login successful
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    token:
-                      type: string
-                      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-          '400':
-            $ref: ../components/responses/BadRequest.yaml
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /api/users:
     get:
       summary: List all users
@@ -86,6 +87,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
     post:
       summary: Create a new user
       tags:
@@ -112,13 +115,17 @@ paths:
               example:
                 error: Validation failed
                 details: Name is required
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
   /api/users/{me}:
     put:
       summary: Update user by ID
       tags:
         - Users
+      security:
+        - bearerAuth: []
       parameters:
-        - name: id
+        - name: me
           in: path
           description: ID of the user to update
           required: true
@@ -147,6 +154,8 @@ paths:
               example:
                 error: Validation failed
                 details: Name is required
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: No results found
           content:
@@ -160,8 +169,10 @@ paths:
       summary: Delete user by ID
       tags:
         - Users
+      security:
+        - bearerAuth: []
       parameters:
-        - name: id
+        - name: me
           in: path
           description: ID of the user to delete
           required: true
@@ -171,6 +182,8 @@ paths:
       responses:
         '204':
           description: User deleted successfully
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
         '404':
           description: No results found
           content:
@@ -536,7 +549,30 @@ paths:
         '404':
           $ref: ../components/responses/NotFound.yaml
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
+    AuthSignUp:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          example: Alice Green
+        email:
+          type: string
+          example: alice@example.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          example: alice12345
     User:
       type: object
       properties:
@@ -553,6 +589,30 @@ components:
         phone:
           type: string
           example: 123-456-7890
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Validation failed
+        details:
+          type: array
+          items:
+            type: string
+    AuthLogin:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: alice@example.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          example: alice12345
     Error:
       type: object
       properties:
@@ -576,22 +636,12 @@ components:
         restaurantId:
           type: integer
           example: 1
-    ValidationError:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Validation failed
-        details:
-          type: array
-          items:
-            type: string
     NotFoundError:
       type: object
       properties:
         error:
           type: string
-          example: Task not found
+          example: Not found
     Restaurant:
       type: object
       properties:
@@ -657,6 +707,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ValidationError'
+    UnauthorizedError:
+      description: Unauthorized access
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: Not found
       content:
