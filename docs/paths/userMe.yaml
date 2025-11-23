@@ -1,0 +1,72 @@
+get:
+  summary: Get current user
+  tags:
+    - Users
+  responses:
+    '200':
+      description: Successful response with current user details
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/User.yaml
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Unauthorized
+            details: Authentication credentials were missing or incorrect
+put:
+  summary: Update current user
+  tags:
+    - Users
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/User.yaml
+  responses:
+    '200':
+      description: User updated successfully
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/User.yaml
+    '400':
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Validation failed
+            details: An email, password, or phone number must be provided to update
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Unauthorized
+            details: Authentication credentials were missing or incorrect
+delete:
+  summary: Delete current user
+  tags:
+    - Users
+  responses:
+    '204':
+      description: User deleted successfully
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Unauthorized
+            details: Authentication credentials were missing or incorrect
+      

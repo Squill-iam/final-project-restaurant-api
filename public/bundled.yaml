@@ -62,19 +62,31 @@ paths:
               example:
                 error: Validation failed
                 details: Name is required
-  /api/users/{id}:
-    put:
-      summary: Update user by ID
+  /api/users/me:
+    get:
+      summary: Get current user
       tags:
         - Users
-      parameters:
-        - name: id
-          in: path
-          description: ID of the user to update
-          required: true
-          schema:
-            type: integer
-            example: 1
+      responses:
+        '200':
+          description: Successful response with current user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Unauthorized
+                details: Authentication credentials were missing or incorrect
+    put:
+      summary: Update current user
+      tags:
+        - Users
       requestBody:
         required: true
         content:
@@ -96,40 +108,32 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 error: Validation failed
-                details: Name is required
-        '404':
-          description: No results found
+                details: An email, password, or phone number must be provided to update
+        '401':
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
-                error: Not found
-                details: No user exists with the given ID
+                error: Unauthorized
+                details: Authentication credentials were missing or incorrect
     delete:
-      summary: Delete user by ID
+      summary: Delete current user
       tags:
         - Users
-      parameters:
-        - name: id
-          in: path
-          description: ID of the user to delete
-          required: true
-          schema:
-            type: integer
-            example: 1
       responses:
         '204':
           description: User deleted successfully
-        '404':
-          description: No results found
+        '401':
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
-                error: Not found
-                details: No user exists with the given ID
+                error: Unauthorized
+                details: Authentication credentials were missing or incorrect
   /api/menu:
     get:
       summary: List all menu items

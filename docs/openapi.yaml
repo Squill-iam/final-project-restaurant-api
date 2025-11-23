@@ -16,8 +16,8 @@ tags:
 paths:
   /api/users:
     $ref: paths/users.yaml
-  /api/users/{id}:
-    $ref: paths/userId.yaml
+  /api/users/me:
+    $ref: paths/userMe.yaml
   /api/menu:
     $ref: paths/menu.yaml
   /api/menu/{id}:
