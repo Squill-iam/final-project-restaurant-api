@@ -1,15 +1,17 @@
 type: object
+required:
+  - name
+  - email
+  - password
 properties:
-  id:
-    readOnly: true
-    type: integer
-    example: 1
   name:
     type: string
     example: Alice Green
   email:
     type: string
     example: alice@example.com
-  phone:
+  password:
     type: string
-    example: 123-456-7890
+    format: password
+    minLength: 8
+    example: alice12345

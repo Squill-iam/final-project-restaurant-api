@@ -1,0 +1,45 @@
+register:
+  post:
+    summary: Register a new user
+    tags:
+      - Authentication
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/AuthSignUp.yaml
+    responses:
+      '201':
+        description: User created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/User.yaml'
+      '400':
+        $ref: ../components/responses/BadRequest.yaml
+
+login:
+  post:
+    summary: Login a user
+    tags:
+      - Authentication
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/AuthLogin.yaml
+    responses:
+      '200':
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      '400':
+        $ref: ../components/responses/BadRequest.yaml
