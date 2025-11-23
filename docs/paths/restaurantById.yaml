@@ -1,7 +1,7 @@
 get:
   summary: Get restaurant by ID
   tags:
-    - Restaurant
+    - Restaurants
   parameters:
     - name: id
       in: path
@@ -38,7 +38,7 @@ get:
 put:
   summary: Update a restaurant
   tags:
-    - Restaurant
+    - Restaurants
   parameters:
     - name: id
       in: path
@@ -81,7 +81,7 @@ put:
 delete:
   summary: Delete restaurant by ID
   tags:
-    - Restaurant
+    - Restaurants
   parameters:
     - name: id
       in: path

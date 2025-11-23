@@ -1,7 +1,7 @@
 get:
   summary: List all restaurants
   tags:
-    - Restaurant
+    - Restaurants
   responses:
     '200':
       description: OK
@@ -16,7 +16,7 @@ get:
 post:
   summary: Create a restaurant
   tags:
-    - Restaurant
+    - Restaurants
   requestBody:
     required: true
     content:

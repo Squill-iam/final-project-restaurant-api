@@ -7,6 +7,8 @@ servers:
     description: Local development servers
   - url: https://restaurant-api-nj73.onrender.com
     description: Production server on render
+security:
+  - BearerAuth: []
 tags:
   - name: Authentication
     description: Authentication-related endpoints
@@ -19,51 +21,6 @@ tags:
   - name: Reservations
     description: Reservation-related endpoints
 paths:
-  /api/auth:
-    register:
-      post:
-        summary: Register a new user
-        tags:
-          - Authentication
-        requestBody:
-          required: true
-          content:
-            application/json:
-              schema:
-                $ref: ../components/schemas/AuthSignUp.yaml
-        responses:
-          '201':
-            description: User created successfully
-            content:
-              application/json:
-                schema:
-                  $ref: ../components/schemas/User.yaml
-          '400':
-            $ref: ../components/responses/BadRequest.yaml
-    login:
-      post:
-        summary: Login a user
-        tags:
-          - Authentication
-        requestBody:
-          required: true
-          content:
-            application/json:
-              schema:
-                $ref: ../components/schemas/AuthLogin.yaml
-        responses:
-          '200':
-            description: Login successful
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    token:
-                      type: string
-                      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-          '400':
-            $ref: ../components/responses/BadRequest.yaml
   /api/users:
     get:
       summary: List all users
@@ -290,7 +247,7 @@ paths:
     get:
       summary: List all restaurants
       tags:
-        - Restaurant
+        - Restaurants
       responses:
         '200':
           description: OK
@@ -305,7 +262,7 @@ paths:
     post:
       summary: Create a restaurant
       tags:
-        - Restaurant
+        - Restaurants
       requestBody:
         required: true
         content:
@@ -332,7 +289,7 @@ paths:
     get:
       summary: Get restaurant by ID
       tags:
-        - Restaurant
+        - Restaurants
       parameters:
         - name: id
           in: path
@@ -369,7 +326,7 @@ paths:
     put:
       summary: Update a restaurant
       tags:
-        - Restaurant
+        - Restaurants
       parameters:
         - name: id
           in: path
@@ -412,7 +369,7 @@ paths:
     delete:
       summary: Delete restaurant by ID
       tags:
-        - Restaurant
+        - Restaurants
       parameters:
         - name: id
           in: path
@@ -539,8 +496,75 @@ paths:
           $ref: ../components/responses/BadRequest.yaml
         '404':
           $ref: ../components/responses/NotFound.yaml
+  /api/auth/register:
+    post:
+      summary: Register a new user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthSignUp'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /api/auth/login:
+    post:
+      summary: Login a user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLogin'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          $ref: '#/components/responses/BadRequest'
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
+    AuthSignUp:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          example: Alice Green
+        email:
+          type: string
+          example: alice@example.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          example: alice12345
     User:
       type: object
       properties:
@@ -557,6 +581,30 @@ components:
         phone:
           type: string
           example: 123-456-7890
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Validation failed
+        details:
+          type: array
+          items:
+            type: string
+    AuthLogin:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: alice@example.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          example: alice12345
     Error:
       type: object
       properties:
@@ -580,16 +628,6 @@ components:
         restaurantId:
           type: integer
           example: 1
-    ValidationError:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Validation failed
-        details:
-          type: array
-          items:
-            type: string
     NotFoundError:
       type: object
       properties:

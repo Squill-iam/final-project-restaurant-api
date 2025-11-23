@@ -18,10 +18,9 @@ tags:
     description: Restaurant-related endpoints
   - name: Reservations
     description: Reservation-related endpoints
- 
-paths:
-  /api/auth:
-    $ref: paths/auth.yaml
+
+paths:  
+  $ref: paths/auth.yaml
   /api/users:
     $ref: paths/users.yaml
   /api/users/me:
@@ -38,3 +37,13 @@ paths:
     $ref: paths/reservationPath.yaml
   /api/reservations/{id}:
     $ref: paths/reservationById.yaml
+
+security:
+  - BearerAuth: []
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
