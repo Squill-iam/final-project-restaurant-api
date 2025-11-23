@@ -21,9 +21,9 @@ tags:
  
 paths:
   /api/auth/signup:
-    $ref: paths/auth.yaml
+    $ref: paths/authsignup.yaml
   /api/auth/login:
-    $ref: paths/auth.yaml
+    $ref: paths/authlogin.yaml
   /api/users:
     $ref: paths/users.yaml
   /api/users/{me}:
