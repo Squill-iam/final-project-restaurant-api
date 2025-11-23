@@ -1,7 +1,7 @@
 get:
   summary: List all restaurants
   tags:
-    - Restaurant
+    - Restaurants
   responses:
     '200':
       description: OK
@@ -11,12 +11,14 @@ get:
             type: array
             items:
               $ref: ../components/schemas/Restaurant.yaml
+    '401':
+      $ref: '../components/responses/UnauthorizedError.yaml'
     '400':
       $ref: ../components/responses/BadRequest.yaml
 post:
-  summary: Create a restaurant
+  summary: Create a restaurants
   tags:
-    - Restaurant
+    - Restaurants
   requestBody:
     required: true
     content:
@@ -30,6 +32,10 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/Restaurant.yaml
+    '401':
+      $ref: '../components/responses/UnauthorizedError.yaml'
+    '403':
+      $ref: '../components/responses/ForbiddenError.yaml'
     '400':
       description: Invalid input
       content:

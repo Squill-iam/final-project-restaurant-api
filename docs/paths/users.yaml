@@ -21,31 +21,3 @@ get:
               $ref: ../components/schemas/User.yaml
     '401':
       $ref: '../components/responses/UnauthorizedError.yaml'
-post:
-  summary: Create a new user
-  tags:
-    - Users
-  requestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          $ref: ../components/schemas/User.yaml
-  responses:
-    '201':
-      description: User created successfully
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/User.yaml
-    '400':
-      description: Invalid input
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/Error.yaml
-          example:
-            error: Validation failed
-            details: Name is required
-    '401':
-      $ref: '../components/responses/UnauthorizedError.yaml'

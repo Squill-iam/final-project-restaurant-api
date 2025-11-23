@@ -1,7 +1,7 @@
 get:
   summary: Get restaurant by ID
   tags:
-    - Restaurant
+    - Restaurants
   parameters:
     - name: id
       in: path
@@ -26,6 +26,8 @@ get:
           example:
             error: Validation failed
             details: ID must be a positive integer
+    '401':
+      $ref: '../components/responses/UnauthorizedError.yaml'
     '404':
       description: No results found
       content:
@@ -38,7 +40,7 @@ get:
 put:
   summary: Update a restaurant
   tags:
-    - Restaurant
+    - Restaurants
   parameters:
     - name: id
       in: path
@@ -69,6 +71,10 @@ put:
           example:
             error: Validation failed
             details: Name is required
+    '401':
+      $ref: '../components/responses/UnauthorizedError.yaml'
+    '403':
+      $ref: '../components/responses/ForbiddenError.yaml'
     '404':
       description: No results found
       content:
@@ -81,7 +87,7 @@ put:
 delete:
   summary: Delete restaurant by ID
   tags:
-    - Restaurant
+    - Restaurants
   parameters:
     - name: id
       in: path
@@ -92,7 +98,11 @@ delete:
         example: 1
   responses:
     '204':
-      description: Restaurant deleted successfully
+      description: Restaurant deleted successfull
+    '401':
+      $ref: '../components/responses/UnauthorizedError.yaml'
+    '403':
+      $ref: '../components/responses/ForbiddenError.yaml'
     '404':
       description: No results found
       content:
