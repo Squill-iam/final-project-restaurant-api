@@ -35,11 +35,7 @@ put:
             error: Validation failed
             details: Name is required
     '401':
-      description: Unauthorized access
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/UnauthorizedError.yaml'
+      $ref: '#/components/responses/UnauthorizedError'
     '404':
       description: No results found
       content:
@@ -67,11 +63,7 @@ delete:
     '204':
       description: User deleted successfully
     '401':
-      description: Unauthorized access
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/UnauthorizedError.yaml'
+      $ref: '#/components/responses/UnauthorizedError'
     '404':
       description: No results found
       content:

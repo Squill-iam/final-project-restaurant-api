@@ -40,11 +40,14 @@ paths:
     $ref: paths/reservationById.yaml
 
 components:
+  responses:
+    UnauthorizedError:
+      description: Unauthorized access
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
 
-  security:
+security:
     - bearerAuth: []
