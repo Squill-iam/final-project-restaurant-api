@@ -691,7 +691,7 @@ components:
               details:
                 type: String
           example:
-            error: Not authentication
+            error: Not authenticated
     NotFound:
       description: Not found
       content:
