@@ -8,12 +8,20 @@ servers:
   - url: https://restaurant-api-nj73.onrender.com
     description: Production server on render
 tags:
+  - name: Auth
+    description: Authentication-related endpoints
   - name: Users
     description: User-related endpoints
   - name: Menu
+    description: Menu-related endpoints
   - name: Restaurants
     description: Restaurant-related endpoints
+  - name: Reservations
+    description: Reservation-related endpoints
+ 
 paths:
+  /api/auth:
+    $ref: paths/auth.yaml
   /api/users:
     $ref: paths/users.yaml
   /api/users/{id}:
@@ -26,7 +34,7 @@ paths:
     $ref: paths/restaurant.yaml
   /api/restaurants/{id}:
     $ref: paths/restaurantById.yaml
-  /api/reservation:
+  /api/reservations:
     $ref: paths/reservationPath.yaml
-  /api/reservation/{id}:
+  /api/reservations/{id}:
     $ref: paths/reservationById.yaml
