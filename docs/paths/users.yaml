@@ -20,7 +20,7 @@ get:
             items:
               $ref: ../components/schemas/User.yaml
     '401':
-      $ref: ../components/responses/Unauthorized.yaml
+      $ref: ../components/responses/UnauthorizedError.yaml
 post:
   summary: Create a new user
   tags:
@@ -48,4 +48,4 @@ post:
             error: Validation failed
             details: Name is required
     '401':
-      $ref: ../components/responses/Unauthorized.yaml
+      $ref: ../components/responses/UnauthorizedError.yaml
