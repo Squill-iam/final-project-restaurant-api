@@ -16,7 +16,7 @@ get:
 post:
   summary: Create a Reservation
   tags:
-    - Reservation
+    - Reservations
   requestBody:
     required: true
     content:

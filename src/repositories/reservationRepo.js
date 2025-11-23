@@ -2,7 +2,7 @@ import prisma from "../config/db.js";
 
 
 export async function findAll() {
-    return prisma.reservations.findMany();
+    return prisma.reservation.findMany();
 }
 
 export async function create(reservation) {
@@ -16,7 +16,7 @@ export async function update(id) {
   try{
   const updateReservation = await prisma.reservation.update({
     where: { id },
-    status: 'CANCELED',
+    data:{status: 'CANCELED'},
   });
   return updateReservation;
   }
