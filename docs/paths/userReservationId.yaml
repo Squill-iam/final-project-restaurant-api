@@ -1,5 +1,5 @@
 get:
-  summary: Get user's reservation by ID
+  summary: Admin Get user's reservation by ID
   tags:
     - Users
   security:
