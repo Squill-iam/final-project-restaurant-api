@@ -1,0 +1,23 @@
+get:
+  summary: Get current user's reservation
+  tags:
+    - Users
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: Current user's reservation retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Reservation.yaml
+    '401':
+      $ref: '../components/responses/UnauthorizedError.yaml'
+    '404':
+      description: No current reservation found for the user
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: No current reservation found

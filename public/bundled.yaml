@@ -89,6 +89,32 @@ paths:
                   $ref: '#/components/schemas/User'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+    post:
+      summary: Create a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Validation failed
+                details: Email is required
   /api/users/me:
     get:
       summary: Get current user
@@ -146,6 +172,30 @@ paths:
           description: Current user deleted successfully
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+  /api/users/me/reservations:
+    get:
+      summary: Get current user's reservation
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current user's reservation retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: No current reservation found for the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: No current reservation found
   /api/menu:
     get:
       summary: List all menu items
@@ -592,6 +642,36 @@ components:
           type: string
         details:
           type: string
+    Reservation:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 2
+        restaurantId:
+          type: integer
+          example: 1
+        reservationTime:
+          type: string
+          format: date-time
+          example: 2025-11-0217:22:00
+        partySize:
+          type: integer
+          example: 5
+        status:
+          type: string
+          enum:
+            - CONFIRMED
+            - CANCELED
+          example: CONFIRMED
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-11-0212:30:00
     menuItem:
       type: object
       properties:
