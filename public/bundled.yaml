@@ -172,7 +172,7 @@ paths:
           description: Current user deleted successfully
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-  /api/users/:id/reservations:
+  /api/users/{id}/reservations:
     get:
       summary: Admin Get user's reservation by ID
       tags:
