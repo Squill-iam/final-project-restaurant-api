@@ -192,7 +192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reservation'
+                $ref: '#/components/schemas/reservation'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '404':
@@ -649,7 +649,7 @@ components:
           type: string
         details:
           type: string
-    Reservation:
+    reservation:
       type: object
       properties:
         id:
@@ -729,36 +729,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/menuItem'
-    reservation:
-      type: object
-      properties:
-        id:
-          readOnly: true
-          type: integer
-          example: 1
-        userId:
-          type: integer
-          example: 2
-        restaurantId:
-          type: integer
-          example: 1
-        reservationTime:
-          type: string
-          format: date-time
-          example: 2025-11-0217:22:00
-        partySize:
-          type: integer
-          example: 5
-        status:
-          type: string
-          enum:
-            - CONFIRMED
-            - CANCELED
-          example: CONFIRMED
-        createdAt:
-          type: string
-          format: date-time
-          example: 2025-11-0212:30:00
   responses:
     BadRequest:
       description: Invalid input
