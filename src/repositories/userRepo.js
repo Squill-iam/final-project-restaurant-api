@@ -10,7 +10,7 @@ export async function findAllUsers() {
 }
 
 export async function findUserByEmail(email) {
-  return await prisma.user.findUnique({ where: { email } });
+  return await prisma.user.findUnique({ where: { email }});
 }
 
 export async function findCurrentUser(id) {

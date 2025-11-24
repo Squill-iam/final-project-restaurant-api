@@ -1,6 +1,5 @@
 import express from "express";
 import{
-    registerUserHandler,
     getAllUsersHandler, 
     getCurrentUserHandler, 
     updateCurrentUserHandler, 
@@ -14,7 +13,6 @@ import {validateUserUpdate} from '../middleware/userValidators.js';
 
 const router = express.Router();
 
-router.post('/', registerUserHandler);
 router.get('/', authenticate, authorizeRoles('ADMIN'), getAllUsersHandler);
 router.get('/me', authenticate, getCurrentUserHandler);
 router.put('/me', authenticate, validateUserUpdate, updateCurrentUserHandler);
