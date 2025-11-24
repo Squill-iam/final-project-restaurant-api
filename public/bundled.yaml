@@ -174,7 +174,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
   /api/users/id/reservations:
     get:
-      summary: Get user's reservation by ID
+      summary: Admin Get user's reservation by ID
       tags:
         - Users
       security:
