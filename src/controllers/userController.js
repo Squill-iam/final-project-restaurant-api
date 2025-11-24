@@ -22,6 +22,9 @@ export async function getAllUsersHandler(req, res) {
 
 export async function getCurrentUserHandler(req, res) {
   const users = await getCurrentUser(req.user.id);
+  if(!users){
+    return res.status(404).json({message: 'User not found'});
+  }
   res.status(200).json(users);
 }
 
