@@ -9,7 +9,7 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 export async function signUp(name, email, password, phone) {
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
-    const newUser = await registerUser({name, email, password: hashedPassword, phone});
+    const newUser = await registerUser({name, email, password: hashedPassword, phone });
     return newUser;
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
