@@ -10,7 +10,15 @@ export async function findAllUsers() {
 }
 
 export async function findUserByEmail(email) {
-  return await prisma.user.findUnique({ where: { email } });
+  return await prisma.user.findUnique({ where: { email },
+  select: {
+      id: true,
+      email: true,
+      role: true,
+      password: true, // required for login of a created user through post endpoint
+      name: true,
+      phone: true
+    }});
 }
 
 export async function findCurrentUser(id) {
