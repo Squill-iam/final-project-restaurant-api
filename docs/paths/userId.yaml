@@ -13,6 +13,15 @@ get:
             $ref: ../components/schemas/User.yaml
     '401':
       $ref: '../components/responses/UnauthorizedError.yaml'
+    '404':
+      description: No User found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/Error.yaml
+          example:
+            error: Not found
+            details: No user exists with the given ID
 put:
   summary: Update current user
   tags:
