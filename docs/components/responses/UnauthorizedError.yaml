@@ -9,4 +9,4 @@ content:
         details:
           type: String
     example:
-      error: Not authentication
+      error: Not authenticated
