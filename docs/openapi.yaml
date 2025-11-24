@@ -28,8 +28,8 @@ paths:
     $ref: paths/users.yaml
   /api/users/me:
     $ref: paths/userId.yaml
-  /api/users/me/reservations:
-    $ref: paths/userCurrentReservation.yaml
+  /api/users/{id}/reservations:
+    $ref: paths/userReservationId.yaml
   /api/menu:
     $ref: paths/menu.yaml
   /api/menu/{id}:

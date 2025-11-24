@@ -1,16 +1,23 @@
 get:
-  summary: Get current user's reservation
+  summary: Admin Get user's reservation by ID
   tags:
     - Users
   security:
     - bearerAuth: []
+  parameters:
+    - name: id
+      in: path
+      description: ID of the user
+      required: true
+      schema:
+        type: integer
   responses:
     '200':
       description: Current user's reservation retrieved successfully
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/Reservation.yaml
+            $ref: ../components/schemas/reservation.yaml
     '401':
       $ref: '../components/responses/UnauthorizedError.yaml'
     '404':

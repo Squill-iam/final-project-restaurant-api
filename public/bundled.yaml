@@ -67,7 +67,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
   /api/users:
     get:
-      summary: List all users
+      summary: Admin get list all users
       tags:
         - Users
       parameters:
@@ -172,20 +172,27 @@ paths:
           description: Current user deleted successfully
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-  /api/users/me/reservations:
+  /api/users/{id}/reservations:
     get:
-      summary: Get current user's reservation
+      summary: Admin Get user's reservation by ID
       tags:
         - Users
       security:
         - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: Current user's reservation retrieved successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reservation'
+                $ref: '#/components/schemas/reservation'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '404':
@@ -642,7 +649,7 @@ components:
           type: string
         details:
           type: string
-    Reservation:
+    reservation:
       type: object
       properties:
         id:
@@ -722,36 +729,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/menuItem'
-    reservation:
-      type: object
-      properties:
-        id:
-          readOnly: true
-          type: integer
-          example: 1
-        userId:
-          type: integer
-          example: 2
-        restaurantId:
-          type: integer
-          example: 1
-        reservationTime:
-          type: string
-          format: date-time
-          example: 2025-11-0217:22:00
-        partySize:
-          type: integer
-          example: 5
-        status:
-          type: string
-          enum:
-            - CONFIRMED
-            - CANCELED
-          example: CONFIRMED
-        createdAt:
-          type: string
-          format: date-time
-          example: 2025-11-0212:30:00
   responses:
     BadRequest:
       description: Invalid input
