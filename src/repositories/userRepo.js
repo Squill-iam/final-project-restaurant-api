@@ -22,7 +22,7 @@ export async function findCurrentUser(id) {
 
 export async function updatedCurrentUser(id, data) {
   if (data.password) {
-    data.password = bcrypt.hash(data.password, 10);
+    data.password = await bcrypt.hash(data.password, 10);
   }
   return await prisma.user.update({
     where: { id },
