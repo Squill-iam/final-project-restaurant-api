@@ -1,5 +1,5 @@
 get:
-  summary: List all users
+  summary: Admin get list all users
   tags:
     - Users
   parameters:
