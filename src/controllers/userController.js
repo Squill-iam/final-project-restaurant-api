@@ -42,7 +42,7 @@ export async function deleteCurrentUserHandler(req, res) {
 }
 
 export async function getUserReservationsHandler(req, res) {
-const userId = parseInt(req.user.id);
+const userId = parseInt(req.params.id);
 const reservations = await getUserReservations(userId);
 res.status(200).json(reservations);
 }
