@@ -1,9 +1,16 @@
 get:
-  summary: Get current user's reservation
+  summary: Get user's reservation by ID
   tags:
     - Users
   security:
     - bearerAuth: []
+  parameters:
+    - name: id
+      in: path
+      description: ID of the user
+      required: true
+      schema:
+        type: integer
   responses:
     '200':
       description: Current user's reservation retrieved successfully
