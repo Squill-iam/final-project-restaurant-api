@@ -19,6 +19,6 @@ router.get('/', authenticate, authorizeRoles('ADMIN'), getAllUsersHandler);
 router.get('/me', authenticate, getCurrentUserHandler);
 router.put('/me', authenticate, validateUserUpdate, updateCurrentUserHandler);
 router.delete('/me', authenticate, deleteCurrentUserHandler);
-router.get('/:id/reservations', authenticate, authorizeRoles('ADMIN'), getUserReservationsHandler);
+router.get('/:id/reservations', authenticate, getUserReservationsHandler);
 
 export default router;
